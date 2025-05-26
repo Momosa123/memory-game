@@ -3,6 +3,7 @@ import type { GameOptions, GameState, Player, Card } from "../lib/types";
 import { createGameBoard } from "../lib/gameLogic";
 
 interface GameStore extends GameState {
+  isBusy: boolean;
   startGame: (options: GameOptions) => void;
   selectCard: (cardId: string) => void;
   resetGame: () => void;
@@ -26,6 +27,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   moves: 0,
   selectedCards: [],
   isGameOver: false,
+  isBusy: false,
 
   startGame: (options: GameOptions) => {
     set({
@@ -36,18 +38,19 @@ export const useGameStore = create<GameStore>((set, get) => ({
       moves: 0,
       selectedCards: [],
       isGameOver: false,
+      isBusy: false,
     });
   },
 
   selectCard: (cardId: string) => {
-    const { board, selectedCards, isGameOver } = get();
-    if (isGameOver) return;
+    const { board, selectedCards, isGameOver, isBusy } = get();
+    if (isGameOver || isBusy) return;
     const card = board.find((c: Card) => c.id === cardId);
     if (!card || card.isFlipped || card.isMatched) return;
 
     // Retourne la carte
     const newBoard = board.map((c: Card) =>
-      c.id === cardId ? { ...c, isFlipped: true } : c,
+      c.id === cardId ? { ...c, isFlipped: true } : c
     );
     const newSelected = [...selectedCards, { ...card, isFlipped: true }];
 
@@ -55,20 +58,21 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
     // Si deux cartes sélectionnées, vérifier la paire
     if (newSelected.length === 2) {
+      set({ isBusy: true });
       setTimeout(() => {
         const [first, second] = newSelected;
         if (first.value === second.value) {
           // Marquer comme matched
           set((state) => ({
             board: state.board.map((c) =>
-              c.value === first.value ? { ...c, isMatched: true } : c,
+              c.value === first.value ? { ...c, isMatched: true } : c
             ),
             selectedCards: [],
             // Incrémenter le score du joueur courant
             players: state.players.map((p, idx) =>
               idx === state.currentPlayerId - 1
                 ? { ...p, score: p.score + 1 }
-                : p,
+                : p
             ),
           }));
         } else {
@@ -77,7 +81,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
             board: state.board.map((c) =>
               c.id === first.id || c.id === second.id
                 ? { ...c, isFlipped: false }
-                : c,
+                : c
             ),
             selectedCards: [],
             // Changer de joueur si multijoueur
@@ -94,6 +98,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         // Vérifier la fin de partie
         set((state) => ({
           isGameOver: state.board.every((c) => c.isMatched),
+          isBusy: false,
         }));
       }, 800);
     }
@@ -108,6 +113,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       moves: 0,
       selectedCards: [],
       isGameOver: false,
+      isBusy: false,
     });
   },
 
