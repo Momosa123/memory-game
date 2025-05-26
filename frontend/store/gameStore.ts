@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import type { GameOptions, GameState, Player, Card } from "../lib/types";
-import { createGameBoard } from "../lib/gameLogic";
+import type { GameOptions, GameState, Player, Card } from "@/lib/types";
+import { createGameBoard } from "@/lib/gameLogic";
 
 interface GameStore extends GameState {
   isBusy: boolean;
