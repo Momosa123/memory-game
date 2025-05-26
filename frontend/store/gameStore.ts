@@ -1,8 +1,9 @@
 import { create } from "zustand";
-import type { GameOptions, GameState, Player, Card } from "../lib/types";
-import { createGameBoard } from "../lib/gameLogic";
+import type { GameOptions, GameState, Player, Card } from "@/lib/types";
+import { createGameBoard } from "@/lib/gameLogic";
 
 interface GameStore extends GameState {
+  isBusy: boolean;
   startGame: (options: GameOptions) => void;
   selectCard: (cardId: string) => void;
   resetGame: () => void;
@@ -26,6 +27,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
   moves: 0,
   selectedCards: [],
   isGameOver: false,
+  isBusy: false,
 
   startGame: (options: GameOptions) => {
     set({
@@ -36,12 +38,13 @@ export const useGameStore = create<GameStore>((set, get) => ({
       moves: 0,
       selectedCards: [],
       isGameOver: false,
+      isBusy: false,
     });
   },
 
   selectCard: (cardId: string) => {
-    const { board, selectedCards, isGameOver } = get();
-    if (isGameOver) return;
+    const { board, selectedCards, isGameOver, isBusy } = get();
+    if (isGameOver || isBusy) return;
     const card = board.find((c: Card) => c.id === cardId);
     if (!card || card.isFlipped || card.isMatched) return;
 
@@ -55,6 +58,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
     // Si deux cartes sélectionnées, vérifier la paire
     if (newSelected.length === 2) {
+      set({ isBusy: true });
       setTimeout(() => {
         const [first, second] = newSelected;
         if (first.value === second.value) {
@@ -94,6 +98,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
         // Vérifier la fin de partie
         set((state) => ({
           isGameOver: state.board.every((c) => c.isMatched),
+          isBusy: false,
         }));
       }, 800);
     }
@@ -108,6 +113,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
       moves: 0,
       selectedCards: [],
       isGameOver: false,
+      isBusy: false,
     });
   },
 
