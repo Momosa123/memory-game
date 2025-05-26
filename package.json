@@ -1,0 +1,19 @@
+{
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.0.0"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "format:fix": "pnpm --filter frontend run format:fix"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "pnpm run format:fix",
+      "eslint --fix"
+    ],
+    "frontend/**/*.{json,md,css}": [
+      "pnpm run format:fix"
+    ]
+  }
+}
