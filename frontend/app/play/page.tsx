@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import GameBoard from "@/components/GameBoard";
 import { Button } from "@/components/ui/button";
 import PlayerScore from "../../components/PlayerScore";
+import GameInfo from "../../components/GameInfo";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
@@ -28,6 +29,11 @@ export default function PlayPage() {
       <h1 className="text-3xl font-bold mb-4 text-indigo-800">
         Plateau de jeu
       </h1>
+      <GameInfo
+        currentPlayerId={currentPlayerId}
+        moves={moves}
+        totalPlayers={players.length}
+      />
       <div className="mb-4 flex flex-col sm:flex-row gap-4 items-center">
         <div className="flex gap-4">
           {players.map((p) => (
@@ -39,7 +45,6 @@ export default function PlayPage() {
             />
           ))}
         </div>
-        <span className="text-indigo-700">Coups : {moves}</span>
       </div>
       <GameBoard
         board={useGameStore((s) => s.board)}
