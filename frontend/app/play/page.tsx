@@ -1,8 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
-import { useGameStore } from "../../store/gameStore";
+import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
-import GameBoard from "../../components/GameBoard";
+import GameBoard from "@/components/GameBoard";
+import { Button } from "@/components/ui/button";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
@@ -44,18 +45,10 @@ export default function PlayPage() {
         onCardClick={useGameStore((s) => s.selectCard)}
       />
       <div className="mt-8 flex gap-4">
-        <button
-          className="bg-gray-200 text-gray-700 px-4 py-2 rounded hover:bg-gray-300 transition"
-          onClick={() => router.push("/")}
-        >
+        <Button variant="outline" onClick={() => router.push("/")}>
           Retour à l&apos;accueil
-        </button>
-        <button
-          className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition"
-          onClick={resetGame}
-        >
-          Recommencer
-        </button>
+        </Button>
+        <Button onClick={resetGame}>Recommencer</Button>
       </div>
       {isGameOver && (
         <div className="mt-8 p-4 bg-green-100 text-green-800 rounded shadow text-xl font-bold">
