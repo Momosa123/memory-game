@@ -50,7 +50,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
 
     // Retourne la carte
     const newBoard = board.map((c: Card) =>
-      c.id === cardId ? { ...c, isFlipped: true } : c
+      c.id === cardId ? { ...c, isFlipped: true } : c,
     );
     const newSelected = [...selectedCards, { ...card, isFlipped: true }];
 
@@ -65,14 +65,14 @@ export const useGameStore = create<GameStore>((set, get) => ({
           // Marquer comme matched
           set((state) => ({
             board: state.board.map((c) =>
-              c.value === first.value ? { ...c, isMatched: true } : c
+              c.value === first.value ? { ...c, isMatched: true } : c,
             ),
             selectedCards: [],
             // Incrémenter le score du joueur courant
             players: state.players.map((p, idx) =>
               idx === state.currentPlayerId - 1
                 ? { ...p, score: p.score + 1 }
-                : p
+                : p,
             ),
           }));
         } else {
@@ -81,7 +81,7 @@ export const useGameStore = create<GameStore>((set, get) => ({
             board: state.board.map((c) =>
               c.id === first.id || c.id === second.id
                 ? { ...c, isFlipped: false }
-                : c
+                : c,
             ),
             selectedCards: [],
             // Changer de joueur si multijoueur

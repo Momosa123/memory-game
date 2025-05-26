@@ -14,7 +14,7 @@ const PlayerScore: React.FC<PlayerScoreProps> = ({ id, score, isCurrent }) => {
         "px-3 py-1 rounded font-semibold text-lg border transition-colors",
         isCurrent
           ? "bg-indigo-600 text-white border-indigo-600 shadow"
-          : "bg-white text-indigo-700 border"
+          : "bg-white text-indigo-700 border",
       )}
       aria-current={isCurrent ? "true" : undefined}
     >
