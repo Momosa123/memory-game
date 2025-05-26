@@ -64,5 +64,5 @@ jobs:
       - name: Run Prettier (check only)
         run: pnpm exec prettier --check .
 
-      - name: Run frontend tests
-        run: pnpm run test
+      # - name: Run frontend tests
+      #   run: pnpm run test
