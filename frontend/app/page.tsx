@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { useGameStore } from "../store/gameStore";
-import type { Theme } from "../lib/types";
+import { useGameStore } from "@/store/gameStore";
+import type { Theme } from "@/lib/types";
+import { Button } from "@/components/ui/button";
 
 export default function HomePage() {
   const router = useRouter();
@@ -62,12 +63,9 @@ export default function HomePage() {
             onChange={(e) => setNumPlayers(Number(e.target.value))}
           />
         </div>
-        <button
-          type="submit"
-          className="bg-indigo-600 text-white font-semibold py-2 rounded hover:bg-indigo-700 transition"
-        >
+        <Button type="submit" className="mt-2">
           Démarrer la partie
-        </button>
+        </Button>
       </form>
     </main>
   );
