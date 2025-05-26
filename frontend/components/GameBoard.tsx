@@ -1,6 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import type { Card as CardType } from "../lib/types";
+import type { Card as CardType } from "@/lib/types";
 
 interface GameBoardProps {
   board: CardType[];
