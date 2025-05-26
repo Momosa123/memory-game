@@ -4,6 +4,7 @@ import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
 import GameBoard from "@/components/GameBoard";
 import { Button } from "@/components/ui/button";
+import PlayerScore from "../../components/PlayerScore";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
@@ -30,12 +31,12 @@ export default function PlayPage() {
       <div className="mb-4 flex flex-col sm:flex-row gap-4 items-center">
         <div className="flex gap-4">
           {players.map((p) => (
-            <span
+            <PlayerScore
               key={p.id}
-              className={`px-3 py-1 rounded font-semibold text-lg ${currentPlayerId === p.id ? "bg-indigo-600 text-white" : "bg-white text-indigo-700 border"}`}
-            >
-              Joueur {p.id} : {p.score}
-            </span>
+              id={p.id}
+              score={p.score}
+              isCurrent={currentPlayerId === p.id}
+            />
           ))}
         </div>
         <span className="text-indigo-700">Coups : {moves}</span>
