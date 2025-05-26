@@ -15,7 +15,7 @@ const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <button
-      className={`w-16 h-20 sm:w-20 sm:h-28 flex items-center justify-center border rounded shadow text-2xl font-bold transition-all duration-300
+      className={`w-16 h-20 sm:w-24 sm:h-32 md:w-32 md:h-40 flex items-center justify-center border rounded shadow text-2xl font-bold transition-all duration-300
         ${isMatched ? "bg-green-200 text-green-700" : isFlipped ? "bg-indigo-100 text-indigo-700" : "bg-white text-transparent hover:bg-indigo-50"}
         ${isMatched ? "cursor-default" : "cursor-pointer"}`}
       onClick={onClick}
