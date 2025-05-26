@@ -11,5 +11,6 @@ dependencies = [
 
 [tool.uv]
 dev-dependencies = [
+    "pre-commit>=4.2.0",
     "ruff",
 ]
