@@ -14,6 +14,9 @@
     ],
     "frontend/**/*.{json,md,css}": [
       "pnpm run format:fix"
+    ],
+    "frontend/**/*.{js,jsx,ts,tsx,json,css,md}": [
+      "pnpm --filter frontend exec prettier --write"
     ]
   }
 }
