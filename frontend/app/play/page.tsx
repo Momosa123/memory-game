@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect } from "react";
-import { useGameStore } from "@/store/gameStore";
+import { useGameStore } from "../../store/gameStore";
 import { useRouter } from "next/navigation";
-import GameBoard from "@/components/GameBoard";
-import { Button } from "@/components/ui/button";
-import PlayerScore from "../../components/PlayerScore";
-import GameInfo from "../../components/GameInfo";
+import { PlayerScore, GameInfo, GameBoard } from "@/components";
+import { Button } from "../../components/ui/button";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
