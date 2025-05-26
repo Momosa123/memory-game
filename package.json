@@ -10,7 +10,7 @@
   "lint-staged": {
     "frontend/**/*.{js,jsx,ts,tsx}": [
       "pnpm run format:fix",
-      "eslint"
+      "pnpm --filter frontend exec eslint --no-error-on-unmatched-pattern"
     ],
     "frontend/**/*.{json,md,css}": [
       "pnpm run format:fix"
