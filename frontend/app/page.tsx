@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useGameStore } from "@/store/gameStore";
 import type { Theme } from "@/lib/types";
-import SettingsForm from "../components/SettingsForm";
+import { SettingsForm } from "@components/index";
 
 export default function HomePage() {
   const router = useRouter();

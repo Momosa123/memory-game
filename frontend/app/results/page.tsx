@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { useGameStore } from "../../store/gameStore";
+import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
-import ResultsDisplay from "../../components/ResultsDisplay";
+import { ResultsDisplay } from "@components/index";
 
 export default function ResultsPage() {
   const players = useGameStore((s) => s.players);
