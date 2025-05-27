@@ -1,7 +1,27 @@
 /**
+ * Type représentant un score (conforme à ScoreRead côté backend).
+ */
+export type ScoreRead = {
+  id: number;
+  player: string;
+  score: number;
+  created_at: string; // ISO string
+};
+
+/**
+ * Type représentant les statistiques globales (conforme à ScoreStats côté backend).
+ */
+export type ScoreStats = {
+  count: number;
+  max: number | null;
+  min: number | null;
+  avg: number | null;
+};
+
+/**
  * Récupère le top 10 des scores depuis l'API backend.
  */
-export async function fetchTopScores() {
+export async function fetchTopScores(): Promise<ScoreRead[]> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/top10`
   );
@@ -12,7 +32,7 @@ export async function fetchTopScores() {
 /**
  * Récupère les statistiques globales sur les scores.
  */
-export async function fetchScoreStats() {
+export async function fetchScoreStats(): Promise<ScoreStats> {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/stats`
   );
@@ -23,7 +43,10 @@ export async function fetchScoreStats() {
 /**
  * Envoie un nouveau score au backend.
  */
-export async function createScore(data: { player: string; score: number }) {
+export async function createScore(data: {
+  player: string;
+  score: number;
+}): Promise<ScoreRead> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
