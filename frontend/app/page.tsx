@@ -14,10 +14,22 @@ export default function HomePage() {
   const [size, setSize] = useState(4);
   const [theme, setTheme] = useState<Theme>("numbers");
   const [numPlayers, setNumPlayers] = useState(1);
+  const [maxTime, setMaxTime] = useState(60);
+
+  // Remet maxTime à 60 si on passe en multi
+  const handleNumPlayers = (n: number) => {
+    setNumPlayers(n);
+    if (n !== 1) setMaxTime(60);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    startGame({ size, theme, numPlayers });
+    startGame({
+      size,
+      theme,
+      numPlayers,
+      maxTime: numPlayers === 1 ? maxTime : undefined,
+    });
     router.push("/play");
   };
 
@@ -31,7 +43,9 @@ export default function HomePage() {
           theme={theme}
           setTheme={setTheme}
           numPlayers={numPlayers}
-          setNumPlayers={setNumPlayers}
+          setNumPlayers={handleNumPlayers}
+          maxTime={maxTime}
+          setMaxTime={setMaxTime}
           onSubmit={handleSubmit}
         />
       </div>

@@ -17,10 +17,12 @@ export default function PlayPage() {
   const createScore = useCreateScore();
   const hasPostedScore = useRef(false);
   const isSolo = players.length === 1;
+  const maxTime = useGameStore((s) => s.gameOptions.maxTime) ?? 60;
   // Timer state
-  const [elapsed, setElapsed] = useState(0);
+  const [remaining, setRemaining] = useState(maxTime);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const prevIsGameOver = useRef(isGameOver);
+  const [timeUp, setTimeUp] = useState(false);
 
   useEffect(() => {
     if (isGameOver && !hasPostedScore.current) {
@@ -49,17 +51,15 @@ export default function PlayPage() {
     }
   }, [isGameOver, players, createScore, router]);
 
-  // Gère le timer : démarre au début, stoppe à la fin
+  // Gère le timer à rebours : démarre au début, stoppe à la fin
   useEffect(() => {
-    if (isSolo && !isGameOver) {
-      // Démarre le timer
+    if (isSolo && !isGameOver && maxTime > 0) {
       if (!timerRef.current) {
         timerRef.current = setInterval(() => {
-          setElapsed((t) => t + 1);
+          setRemaining((t) => t - 1);
         }, 1000);
       }
     } else {
-      // Stoppe le timer
       if (timerRef.current) {
         clearInterval(timerRef.current);
         timerRef.current = null;
@@ -67,7 +67,8 @@ export default function PlayPage() {
     }
     // Reset timer si nouvelle partie
     if (!isGameOver && prevIsGameOver.current) {
-      setElapsed(0);
+      setRemaining(maxTime);
+      setTimeUp(false);
     }
     prevIsGameOver.current = isGameOver;
     return () => {
@@ -76,14 +77,25 @@ export default function PlayPage() {
         timerRef.current = null;
       }
     };
-  }, [isSolo, isGameOver]);
+  }, [isSolo, isGameOver, maxTime]);
+
+  // Si temps écoulé, termine la partie
+  useEffect(() => {
+    if (isSolo && !isGameOver && remaining <= 0) {
+      setTimeUp(true);
+      // Déclenche la fin de partie
+      setTimeout(() => {
+        window.location.reload(); // ou router.push('/results') si tu veux aller direct aux résultats
+      }, 2000);
+    }
+  }, [isSolo, isGameOver, remaining]);
 
   // Format mm:ss
   function formatTime(sec: number) {
-    const m = Math.floor(sec / 60)
+    const m = Math.floor(Math.max(0, sec) / 60)
       .toString()
       .padStart(1, "0");
-    const s = (sec % 60).toString().padStart(2, "0");
+    const s = (Math.max(0, sec) % 60).toString().padStart(2, "0");
     return `${m}:${s}`;
   }
 
@@ -111,9 +123,13 @@ export default function PlayPage() {
         <div className="flex gap-4 mt-8">
           {isSolo && (
             <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
-              <span className="text-slate-500 text-sm font-medium">Time</span>
-              <span className="text-slate-800 text-xl font-bold">
-                {formatTime(elapsed)}
+              <span className="text-slate-500 text-sm font-medium">
+                Temps restant
+              </span>
+              <span
+                className={`text-xl font-bold ${remaining <= 10 ? "text-red-600 animate-pulse" : "text-slate-800"}`}
+              >
+                {formatTime(remaining)}
               </span>
             </div>
           )}
@@ -128,6 +144,11 @@ export default function PlayPage() {
       {isGameOver && (
         <div className="mt-8 p-4 bg-green-100 text-green-800 rounded shadow text-xl font-bold text-center">
           🎉 Partie terminée !
+        </div>
+      )}
+      {timeUp && !isGameOver && (
+        <div className="mt-8 p-4 bg-red-100 text-red-800 rounded shadow text-xl font-bold text-center">
+          ⏰ Temps écoulé !
         </div>
       )}
     </div>

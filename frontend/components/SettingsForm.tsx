@@ -10,6 +10,8 @@ interface SettingsFormProps {
   setTheme: (theme: Theme) => void;
   numPlayers: number;
   setNumPlayers: (n: number) => void;
+  maxTime: number;
+  setMaxTime: (n: number) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
 
@@ -29,6 +31,8 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
   setTheme,
   numPlayers,
   setNumPlayers,
+  maxTime,
+  setMaxTime,
   onSubmit,
 }) => {
   const buttonBaseClass =
@@ -104,6 +108,27 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
           ))}
         </div>
       </div>
+      {/* Champ temps max en solo */}
+      {numPlayers === 1 && (
+        <div>
+          <label
+            className="block text-base md:text-lg font-medium mb-2 md:mb-3 text-slate-600"
+            htmlFor="maxTime"
+          >
+            Temps max (secondes)
+          </label>
+          <input
+            id="maxTime"
+            type="number"
+            min={10}
+            max={999}
+            value={maxTime}
+            onChange={(e) => setMaxTime(Number(e.target.value))}
+            className="w-full rounded-lg border border-slate-300 px-4 py-2 text-base focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            required
+          />
+        </div>
+      )}
       <Button
         type="submit"
         className="mt-4 md:mt-6 w-full py-3.5 md:py-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-lg md:text-xl rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
