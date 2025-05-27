@@ -31,3 +31,23 @@ export interface GameState {
   selectedCards: Card[];
   isGameOver: boolean;
 }
+
+/**
+ * Type représentant un score (conforme à ScoreRead côté backend).
+ */
+export type ScoreRead = {
+  id: number;
+  player: string;
+  score: number;
+  created_at: string; // ISO string
+};
+
+/**
+ * Type représentant les statistiques globales (conforme à ScoreStats côté backend).
+ */
+export type ScoreStats = {
+  count: number;
+  max: number | null;
+  min: number | null;
+  avg: number | null;
+};

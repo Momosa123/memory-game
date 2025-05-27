@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { ResultsDisplay } from "@components/index";
 import { useTopScores } from "@/hooks/useTopScores";
 import { useScoreStats } from "@/hooks/useScoreStats";
-import type { ScoreRead } from "@/lib/api/scores";
+import type { ScoreRead } from "@/lib/types";
 
 export default function ResultsPage() {
   const players = useGameStore((s) => s.players);
