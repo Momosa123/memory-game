@@ -1,9 +1,10 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
 import { PlayerScore, GameInfo, GameBoard } from "@components/index";
 import { Button } from "@components/ui/button";
+import { useCreateScore } from "@/hooks/useCreateScore";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
@@ -12,15 +13,37 @@ export default function PlayPage() {
   const isGameOver = useGameStore((s) => s.isGameOver);
   const resetGame = useGameStore((s) => s.resetGame);
   const router = useRouter();
+  const createScore = useCreateScore();
+  const hasPostedScore = useRef(false);
 
   useEffect(() => {
-    if (isGameOver) {
-      const timeout = setTimeout(() => {
-        router.push("/results");
-      }, 1500); // Laisse le temps d'afficher le message de fin
-      return () => clearTimeout(timeout);
+    if (isGameOver && !hasPostedScore.current) {
+      hasPostedScore.current = true;
+      // On prend le joueur gagnant (ou le premier en cas d'égalité)
+      const maxScore = Math.max(...players.map((p) => p.score));
+      const winner = players.find((p) => p.score === maxScore);
+      if (winner) {
+        createScore.mutate(
+          { player: `Joueur ${winner.id}`, score: winner.score },
+          {
+            onSettled: () => {
+              setTimeout(() => {
+                router.push("/results");
+              }, 1500); // Laisse le temps d'afficher le message de fin
+            },
+          }
+        );
+      } else {
+        // Fallback : pas de gagnant trouvé
+        setTimeout(() => {
+          router.push("/results");
+        }, 1500);
+      }
     }
-  }, [isGameOver, router]);
+    if (!isGameOver) {
+      hasPostedScore.current = false;
+    }
+  }, [isGameOver, players, createScore, router]);
 
   return (
     <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 to-blue-200 p-4">
