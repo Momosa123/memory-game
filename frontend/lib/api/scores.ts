@@ -8,7 +8,7 @@ import type { ScoreRead, ScoreStats } from "../types";
  */
 export async function fetchTopScores(): Promise<ScoreRead[]> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/top10`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/top10`,
   );
   if (!res.ok) throw new Error("Erreur lors de la récupération du top 10");
   return res.json();
@@ -19,7 +19,7 @@ export async function fetchTopScores(): Promise<ScoreRead[]> {
  */
 export async function fetchScoreStats(): Promise<ScoreStats> {
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/stats`
+    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/scores/stats`,
   );
   if (!res.ok) throw new Error("Erreur lors de la récupération des stats");
   return res.json();

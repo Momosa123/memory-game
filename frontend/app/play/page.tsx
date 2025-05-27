@@ -31,7 +31,7 @@ export default function PlayPage() {
                 router.push("/results");
               }, 1500); // Laisse le temps d'afficher le message de fin
             },
-          }
+          },
         );
       } else {
         // Fallback : pas de gagnant trouvé
