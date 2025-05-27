@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -29,7 +30,7 @@ class ScoreRead(ScoreBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class ScoreInDB(ScoreRead):
@@ -38,3 +39,14 @@ class ScoreInDB(ScoreRead):
     """
 
     pass
+
+
+class ScoreStats(BaseModel):
+    """
+    Schéma pour les statistiques globales sur les scores.
+    """
+
+    count: int
+    max: Optional[int] = None
+    min: Optional[int] = None
+    avg: Optional[float] = None
