@@ -20,6 +20,7 @@ export interface GameOptions {
   size: number; // 4, 6, etc.
   theme: Theme;
   numPlayers: number;
+  maxTime?: number; // temps max en secondes (optionnel, solo)
 }
 
 export interface GameState {
