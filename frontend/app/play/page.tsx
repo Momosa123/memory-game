@@ -70,10 +70,12 @@ export default function PlayPage() {
             <span className="text-slate-500 text-sm font-medium">Time</span>
             <span className="text-slate-800 text-xl font-bold">0:00</span>
           </div>
-          <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
-            <span className="text-slate-500 text-sm font-medium">Moves</span>
-            <span className="text-slate-800 text-xl font-bold">{moves}</span>
-          </div>
+          {players.length === 1 && (
+            <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
+              <span className="text-slate-500 text-sm font-medium">Moves</span>
+              <span className="text-slate-800 text-xl font-bold">{moves}</span>
+            </div>
+          )}
         </div>
       </div>
       {isGameOver && (
