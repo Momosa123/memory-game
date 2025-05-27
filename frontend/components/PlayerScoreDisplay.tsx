@@ -22,7 +22,7 @@ const PlayerScoreDisplay: React.FC<PlayerScoreDisplayProps> = ({
         "rounded-lg px-4 py-2 flex flex-col items-center justify-center min-w-[70px] md:min-w-[80px] relative",
         isCurrentPlayer
           ? "bg-yellow-500 text-white"
-          : "bg-slate-200 text-slate-700"
+          : "bg-slate-200 text-slate-700",
       )}
     >
       {isCurrentPlayer && (

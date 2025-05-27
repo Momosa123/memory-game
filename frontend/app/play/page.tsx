@@ -38,7 +38,7 @@ export default function PlayPage() {
                 router.push("/results");
               }, 1500);
             },
-          }
+          },
         );
       } else {
         setTimeout(() => {
