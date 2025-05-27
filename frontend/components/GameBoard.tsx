@@ -19,20 +19,20 @@ const GameBoard: React.FC<GameBoardProps> = ({ board, onCardClick }) => {
   let cardSizeClass = "";
   let textSizeClass = "";
   if (size === 4) {
-    cardSizeClass = "w-16 md:w-20 lg:w-24";
-    textSizeClass = "text-xl md:text-2xl lg:text-3xl";
+    cardSizeClass = "w-16 md:w-28 lg:w-32";
+    textSizeClass = "text-xl md:text-3xl lg:text-4xl";
   } else if (size === 6) {
-    cardSizeClass = "w-10 md:w-14 lg:w-16";
-    textSizeClass = "text-base md:text-lg lg:text-xl";
+    cardSizeClass = "w-10 md:w-20 lg:w-24";
+    textSizeClass = "text-base md:text-xl lg:text-2xl";
   } else {
-    cardSizeClass = "w-14 md:w-16 lg:w-20";
-    textSizeClass = "text-lg md:text-xl lg:text-2xl";
+    cardSizeClass = "w-14 md:w-24 lg:w-28";
+    textSizeClass = "text-lg md:text-2xl lg:text-3xl";
   }
 
   return (
     <div
-      className={`grid justify-center max-w-[95vw] mx-auto py-2 ${
-        size === 4 ? "gap-2 md:gap-4" : "gap-1 md:gap-3"
+      className={`grid justify-center max-w-[95vw] md:max-w-[700px] lg:max-w-[900px] mx-auto py-2 ${
+        size === 4 ? "gap-2 md:gap-6 lg:gap-8" : "gap-1 md:gap-4 lg:gap-6"
       }`}
       style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }}
     >
