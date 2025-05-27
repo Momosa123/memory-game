@@ -39,8 +39,7 @@ Memory Game est une application web full-stack (React + FastAPI) qui propose un 
   - Gestionnaire de paquets: [pnpm](https://pnpm.io/)
 - **Backend:**
   - Framework: [FastAPI](https://fastapi.tiangolo.com/) (Python)
-  - Base de données: (À préciser, ex: SQLite, PostgreSQL)
-  - ORM / Migration: (À préciser si applicable, ex: SQLAlchemy & Alembic)
+  - Base de données: [SQLite](https://www.sqlite.org/index.html)
   - Validation des données: [Pydantic](https://docs.pydantic.dev/latest/)
 - **Conteneurisation:** [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
 
@@ -55,8 +54,7 @@ Memory Game est une application web full-stack (React + FastAPI) qui propose un 
 1.  **Cloner le dépôt :**
 
     ```bash
-    # Remplacez avec l'URL de votre dépôt
-    git clone https://github.com/your-username/memory-game.git
+    git clone https://github.com/Momosa123/memory-game.git
     cd memory-game
     ```
 
@@ -72,7 +70,7 @@ Memory Game est une application web full-stack (React + FastAPI) qui propose un 
 3.  **Accéder à l'application :**
 
     - Ouvrez votre navigateur et allez sur `http://localhost:3000`.
-      -Le backend est accessible sur `http://localhost:8000`.
+    - Le backend est accessible sur `http://localhost:8000`.
 
 4.  **Arrêter l'application :**
     - Retournez dans le terminal où `docker-compose up` s'exécute et appuyez sur `Ctrl + C`.
