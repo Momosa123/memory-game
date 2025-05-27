@@ -51,7 +51,10 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
           🏆 Tie between players {winners.map((w) => w.id).join(", ")}!
         </div>
       )}
-      <Button className="mt-6" onClick={onBackToHome}>
+      <Button
+        className="mt-6 bg-yellow-500 hover:bg-yellow-600"
+        onClick={onBackToHome}
+      >
         Back to Home
       </Button>
     </div>
