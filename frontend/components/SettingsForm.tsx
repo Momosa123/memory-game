@@ -115,7 +115,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
             className="block text-base md:text-lg font-medium mb-2 md:mb-3 text-slate-600"
             htmlFor="maxTime"
           >
-            Temps max (secondes)
+            Max Time (seconds)
           </label>
           <input
             id="maxTime"
