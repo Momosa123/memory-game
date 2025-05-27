@@ -3,11 +3,13 @@ import React, { useEffect, useRef } from "react";
 import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
 import { GameBoard } from "@components/index";
+import PlayerScoreDisplay from "@/components/PlayerScoreDisplay";
 
 import { useCreateScore } from "@/hooks/useCreateScore";
 
 export default function PlayPage() {
   const players = useGameStore((s) => s.players);
+  const currentPlayerId = useGameStore((s) => s.currentPlayerId);
   const moves = useGameStore((s) => s.moves);
   const isGameOver = useGameStore((s) => s.isGameOver);
 
@@ -44,14 +46,26 @@ export default function PlayPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-100">
-      {/* Plateau */}
-      <div className="flex-1 flex flex-col items-center justify-center">
+      <div className="flex-1 flex flex-col items-center justify-center pt-10">
         <GameBoard
           board={useGameStore((s) => s.board)}
           onCardClick={useGameStore((s) => s.selectCard)}
         />
+        {/* Affichage des scores des joueurs */}
+        {players.length > 1 && (
+          <div className="flex gap-3 md:gap-4 mt-8">
+            {players.map((player) => (
+              <PlayerScoreDisplay
+                key={player.id}
+                playerId={player.id}
+                score={player.score}
+                isCurrentPlayer={player.id === currentPlayerId}
+              />
+            ))}
+          </div>
+        )}
         {/* Infos moves/time */}
-        <div className="flex gap-4 mt-10">
+        <div className="flex gap-4 mt-8">
           <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
             <span className="text-slate-500 text-sm font-medium">Time</span>
             <span className="text-slate-800 text-xl font-bold">0:00</span>
