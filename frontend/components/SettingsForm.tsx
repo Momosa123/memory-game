@@ -33,6 +33,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
           value={size}
           onChange={(e) => setSize(Number(e.target.value))}
         >
+          <option value={2}>2 x 2</option>
           <option value={4}>4 x 4</option>
           <option value={6}>6 x 6</option>
         </select>
