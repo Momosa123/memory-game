@@ -45,3 +45,40 @@ def delete_score(db: Session, score_id: int) -> None:
     if db_score:
         db.delete(db_score)
         db.commit()
+
+
+def get_top_scores(db: Session, limit: int = 10) -> List[Score]:
+    """
+    Récupère les meilleurs scores (top N, par défaut 10).
+    """
+    return (
+        db.query(Score)
+        .order_by(Score.score.desc(), Score.created_at.asc())
+        .limit(limit)
+        .all()
+    )
+
+
+def get_score_stats(db: Session) -> dict:
+    """
+    Calcule des statistiques globales sur les scores :
+    - nombre de parties
+    - meilleur score
+    - score moyen
+    - score minimum
+    - score maximum
+    """
+    from sqlalchemy import func
+
+    stats = db.query(
+        func.count(Score.id),
+        func.max(Score.score),
+        func.min(Score.score),
+        func.avg(Score.score),
+    ).one()
+    return {
+        "count": stats[0],
+        "max": stats[1],
+        "min": stats[2],
+        "avg": float(stats[3]) if stats[3] is not None else None,
+    }
