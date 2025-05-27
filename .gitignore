@@ -7,6 +7,9 @@ backend/build/
 backend/dist/
 backend/wheels/
 backend/*.egg-info
+__pycache__/
+*.pyc
+
 .ruff_cache/
 
 # Virtual environments pour backend
@@ -51,8 +54,10 @@ frontend/.vercel
 # TypeScript
 frontend/*.tsbuildinfo
 frontend/next-env.d.ts
-Test Technique Clic Campus – Développement d’un Jeu de Mémoire.pdf
+Test Technique Clic Campus – Développement d'un Jeu de Mémoire.pdf
 technique.md
 
 Plan_developemnt.md
 .cursor/rules/code-gen-rule.mdc
+
+Test Technique Clic Campus – Développement d’un Jeu de Mémoire.pdf
