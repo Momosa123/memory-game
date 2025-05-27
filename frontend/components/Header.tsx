@@ -45,8 +45,14 @@ const Header: React.FC = () => {
               </div>
               {/* Modale simple */}
               {menuOpen && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                  <div className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 min-w-[220px]">
+                <div
+                  className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <div
+                    className="bg-white rounded-xl shadow-lg p-6 flex flex-col gap-4 min-w-[220px]"
+                    onClick={(e) => e.stopPropagation()}
+                  >
                     <Button
                       className="bg-yellow-500 text-white font-semibold"
                       onClick={() => {
