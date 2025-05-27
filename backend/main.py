@@ -1,6 +1,5 @@
-def main():
-    print("Hello from backend!")
+# backend/app/main.py (temporaire, à exécuter une fois)
+from app.db.session import Base, engine
+from app.models.score import Score  # noqa: F401
 
-
-if __name__ == "__main__":
-    main()
+Base.metadata.create_all(bind=engine)
