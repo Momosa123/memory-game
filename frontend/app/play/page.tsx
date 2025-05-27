@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGameStore } from "@/store/gameStore";
 import { useRouter } from "next/navigation";
 import { GameBoard } from "@components/index";
@@ -16,6 +16,11 @@ export default function PlayPage() {
   const router = useRouter();
   const createScore = useCreateScore();
   const hasPostedScore = useRef(false);
+  const isSolo = players.length === 1;
+  // Timer state
+  const [elapsed, setElapsed] = useState(0);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const prevIsGameOver = useRef(isGameOver);
 
   useEffect(() => {
     if (isGameOver && !hasPostedScore.current) {
@@ -44,6 +49,44 @@ export default function PlayPage() {
     }
   }, [isGameOver, players, createScore, router]);
 
+  // Gère le timer : démarre au début, stoppe à la fin
+  useEffect(() => {
+    if (isSolo && !isGameOver) {
+      // Démarre le timer
+      if (!timerRef.current) {
+        timerRef.current = setInterval(() => {
+          setElapsed((t) => t + 1);
+        }, 1000);
+      }
+    } else {
+      // Stoppe le timer
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+    // Reset timer si nouvelle partie
+    if (!isGameOver && prevIsGameOver.current) {
+      setElapsed(0);
+    }
+    prevIsGameOver.current = isGameOver;
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [isSolo, isGameOver]);
+
+  // Format mm:ss
+  function formatTime(sec: number) {
+    const m = Math.floor(sec / 60)
+      .toString()
+      .padStart(1, "0");
+    const s = (sec % 60).toString().padStart(2, "0");
+    return `${m}:${s}`;
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-100">
       <div className="flex flex-col flex-1 items-center justify-center w-full max-w-full pt-4">
@@ -66,11 +109,15 @@ export default function PlayPage() {
         )}
         {/* Infos moves/time */}
         <div className="flex gap-4 mt-8">
-          <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
-            <span className="text-slate-500 text-sm font-medium">Time</span>
-            <span className="text-slate-800 text-xl font-bold">0:00</span>
-          </div>
-          {players.length === 1 && (
+          {isSolo && (
+            <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
+              <span className="text-slate-500 text-sm font-medium">Time</span>
+              <span className="text-slate-800 text-xl font-bold">
+                {formatTime(elapsed)}
+              </span>
+            </div>
+          )}
+          {isSolo && (
             <div className="bg-slate-200 rounded-xl px-8 py-3 flex flex-col items-center min-w-[120px]">
               <span className="text-slate-500 text-sm font-medium">Moves</span>
               <span className="text-slate-800 text-xl font-bold">{moves}</span>
