@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useGameStore } from "@/store/gameStore";
 import type { Theme } from "@/lib/types";
 import { SettingsForm } from "@components/index";
+import Header from "@/components/Header";
 
 export default function HomePage() {
   const router = useRouter();
@@ -21,19 +22,19 @@ export default function HomePage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-200 p-4">
-      <h1 className="text-4xl font-bold mb-8 text-indigo-800">
-        Jeu de Mémoire
-      </h1>
-      <SettingsForm
-        size={size}
-        setSize={setSize}
-        theme={theme}
-        setTheme={setTheme}
-        numPlayers={numPlayers}
-        setNumPlayers={setNumPlayers}
-        onSubmit={handleSubmit}
-      />
-    </main>
+    <section className="flex flex-1 flex-col items-center justify-start  pb-10 md:justify-center w-full px-4">
+      <Header />
+      <div className="bg-white rounded-xl shadow-lg p-6 md:p-10 w-full max-w-md md:max-w-lg">
+        <SettingsForm
+          size={size}
+          setSize={setSize}
+          theme={theme}
+          setTheme={setTheme}
+          numPlayers={numPlayers}
+          setNumPlayers={setNumPlayers}
+          onSubmit={handleSubmit}
+        />
+      </div>
+    </section>
   );
 }
