@@ -13,7 +13,7 @@ interface SettingsFormProps {
   onSubmit: (e: React.FormEvent) => void;
 }
 
-const gridSizes = [4, 6];
+const gridSizes = [2, 4, 6];
 const themes: Theme[] = ["numbers", "icons"];
 const playerCounts = [1, 2, 3, 4];
 
