@@ -46,7 +46,7 @@ export default function PlayPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-100">
-      <div className="flex-1 flex flex-col items-center justify-center pt-10">
+      <div className="flex flex-col flex-1 items-center justify-center w-full max-w-full pt-4">
         <GameBoard
           board={useGameStore((s) => s.board)}
           onCardClick={useGameStore((s) => s.selectCard)}
