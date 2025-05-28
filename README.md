@@ -141,6 +141,7 @@ memory-game/
 ## Pistes d'Amélioration Possibles
 
 - **Gestion des nomres de coups :** Sauvegarder lee nombre de coups
+- **Création des noms des joueurs :** Permettre de choisir le nom des joueurs.
 - **Sauvegarde de la partie en cours :** Sauvegarder la partie en cours dans le localStorage.
 - **Thèmes graphiques :** Permettre de choisir différents sets d'images pour les cartes.
 - **Animations :** Ajouter des animations pour le retournement des cartes, les correspondances, etc.

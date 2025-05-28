@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { useGameStore } from "@/store/gameStore";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ResultsDisplay } from "@components/index";
 import { useTopScores } from "@/hooks/useTopScores";
 import { useScoreStats } from "@/hooks/useScoreStats";
@@ -11,6 +11,8 @@ export default function ResultsPage() {
   const players = useGameStore((s) => s.players);
   const moves = useGameStore((s) => s.moves);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const timeout = searchParams.get("timeout") === "1";
 
   const { data: topScores, isLoading: loadingTop } = useTopScores();
   const { data: stats, isLoading: loadingStats } = useScoreStats();
@@ -20,12 +22,19 @@ export default function ResultsPage() {
       <h1 className="text-3xl font-bold mb-10 text-slate-800 text-center">
         Results
       </h1>
+      {timeout && (
+        <div className="mb-6 p-4 bg-red-100 text-red-800 rounded shadow text-lg font-bold text-center">
+          ⏰ Times up! You lost the game.
+        </div>
+      )}
       <div className="flex flex-col md:flex-row items-start justify-center gap-8 w-full max-w-5xl px-4">
-        <ResultsDisplay
-          players={players}
-          moves={moves}
-          onBackToHome={() => router.push("/")}
-        />
+        {!timeout && (
+          <ResultsDisplay
+            players={players}
+            moves={moves}
+            onBackToHome={() => router.push("/")}
+          />
+        )}
 
         <div className="bg-white rounded-xl shadow-lg p-8 w-full max-w-md">
           <h2 className="text-xl font-semibold mb-4 text-slate-600">

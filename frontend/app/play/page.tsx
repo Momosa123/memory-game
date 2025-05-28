@@ -85,7 +85,7 @@ export default function PlayPage() {
       setTimeUp(true);
       // Déclenche la fin de partie
       setTimeout(() => {
-        window.location.reload(); // ou router.push('/results') si tu veux aller direct aux résultats
+        router.push("/results?timeout=1");
       }, 2000);
     }
   }, [isSolo, isGameOver, remaining]);

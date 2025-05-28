@@ -52,7 +52,7 @@ const ResultsDisplay: React.FC<ResultsDisplayProps> = ({
         </div>
       )}
       <Button
-        className="mt-6 bg-yellow-500 hover:bg-yellow-600"
+        className="mt-6 cursor-pointer bg-yellow-500 hover:bg-yellow-600"
         onClick={onBackToHome}
       >
         Back to Home
