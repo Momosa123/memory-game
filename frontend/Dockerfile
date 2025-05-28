@@ -6,6 +6,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
+COPY .env.docker .env
 RUN pnpm install --frozen-lockfile
 
 COPY . .
