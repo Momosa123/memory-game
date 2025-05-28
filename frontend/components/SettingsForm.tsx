@@ -56,7 +56,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setTheme(t)}
               className={cn(
                 buttonBaseClass,
-                theme === t ? activeButtonClass : inactiveButtonClass
+                theme === t ? activeButtonClass : inactiveButtonClass,
               )}
             >
               {themeLabels[t]}
@@ -78,7 +78,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setNumPlayers(n)}
               className={cn(
                 buttonBaseClass,
-                numPlayers === n ? activeButtonClass : inactiveButtonClass
+                numPlayers === n ? activeButtonClass : inactiveButtonClass,
               )}
             >
               {n}
@@ -100,7 +100,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setSize(s)}
               className={cn(
                 buttonBaseClass,
-                size === s ? activeButtonClass : inactiveButtonClass
+                size === s ? activeButtonClass : inactiveButtonClass,
               )}
             >
               {s}x{s}
