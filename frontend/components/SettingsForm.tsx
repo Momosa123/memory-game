@@ -56,7 +56,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setTheme(t)}
               className={cn(
                 buttonBaseClass,
-                theme === t ? activeButtonClass : inactiveButtonClass,
+                theme === t ? activeButtonClass : inactiveButtonClass
               )}
             >
               {themeLabels[t]}
@@ -78,7 +78,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setNumPlayers(n)}
               className={cn(
                 buttonBaseClass,
-                numPlayers === n ? activeButtonClass : inactiveButtonClass,
+                numPlayers === n ? activeButtonClass : inactiveButtonClass
               )}
             >
               {n}
@@ -100,7 +100,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
               onClick={() => setSize(s)}
               className={cn(
                 buttonBaseClass,
-                size === s ? activeButtonClass : inactiveButtonClass,
+                size === s ? activeButtonClass : inactiveButtonClass
               )}
             >
               {s}x{s}
@@ -131,7 +131,7 @@ const SettingsForm: React.FC<SettingsFormProps> = ({
       )}
       <Button
         type="submit"
-        className="mt-4 md:mt-6 w-full py-3.5 md:py-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-lg md:text-xl rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+        className="mt-4 md:mt-6 w-full py-3.5 md:py-4 bg-yellow-500 hover:bg-yellow-600 text-white font-semibold text-lg md:text-xl rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400 cursor-pointer"
       >
         Start Game
       </Button>
